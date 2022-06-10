@@ -1,4 +1,4 @@
-from pull manjarolinux/base:latest AS base
+from manjarolinux/base:latest AS base
 
 RUN pacman -Syyu -unconfirm & pacman -S -unconfirm cuda  & pacman -S -unconfirm python-pip & pacman -S -unconfirm openssh & pacman -Sc -unconfirm
 
