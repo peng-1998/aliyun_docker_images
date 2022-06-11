@@ -1,0 +1,27 @@
+FROM nvidia/cuda:11.3.0-devel-ubuntu20.04
+
+RUN apt -y update && apt -y upgrade && apt -y install git \
+    && apt -y install vim && apt -y curl && apt -y wget \
+    && apt -y python3-pip && apt -y python3-dev && apt -y install openssh-server \
+    && zsh && ssh-keygen -A
+
+COPY ./src/.oh-my-zsh /root/
+
+COPY ./src/.zshrc /root/
+
+COPY ./src/jupyter_notebook_config.py /root/.jupyter/
+
+COPY ./src/sshd_config /etc/ssh/
+
+COPY ./src/mirrorlist /etc/pacman.d/
+
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple \
+    && pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python jupyter \
+    && pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+
+RUN echo "root:scnu" | chpasswd
+
+WORKDIR /root/
+
+CMD zsh
+
