@@ -1,6 +1,9 @@
 from manjarolinux/base:lastest
 
-RUN pacman -Syyu --noconfirm && pacman -S --noconfirm cuda python-pip zsh openssh && pacman -Sc --noconfirm && ssh-keygen -A
+RUN pacman -Syyu --noconfirm \
+    && pacman -S --noconfirm cuda python-pip zsh openssh \
+    && pacman -Sc --noconfirm \
+    && ssh-keygen -A
 
 COPY ./src/sshd_config /etc/ssh/
 
