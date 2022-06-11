@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.3.0-devel-ubuntu20.04
+FROM nvidia/cuda:11.3.0-runtime-ubuntu20.04
 
 RUN apt -y update && apt -y upgrade && apt -y install git \
     && apt -y install vim && apt -y curl && apt -y wget \
