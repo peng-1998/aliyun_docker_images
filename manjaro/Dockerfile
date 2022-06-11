@@ -1,6 +1,15 @@
-from manjarolinux/base:latest AS base
+from manjarolinux/base:lastest
 
-RUN pacman -Syyu --noconfirm && pacman -S --noconfirm cuda  && pacman -S --noconfirm python-pip && pacman -S --noconfirm openssh && pacman -Sc --noconfirm
+RUN pacman -Syyu --noconfirm && pacman -S --noconfirm cuda python-pip zsh openssh && pacman -Sc --noconfirm && ssh-keygen -A
 
-RUN pip install  numpy scipy scikit-learn scikit-image opencv-python && pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+COPY ./src/sshd_config /etc/ssh/
 
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python jupyter && pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+
+COPY ./src/jupyter_notebook_config.py /root/.jupyter/
+
+RUN echo "root:scnu" | chpasswd
+
+WORKDIR /root/
+
+CMD zsh
