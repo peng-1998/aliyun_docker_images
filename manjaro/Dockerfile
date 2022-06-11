@@ -1,5 +1,4 @@
-from manjarolinux/base:lastest
-
+from manjarolinux/base:latest
 RUN pacman -Syyu --noconfirm \
     && pacman -S --noconfirm cuda python-pip zsh openssh \
     && pacman -Sc --noconfirm \

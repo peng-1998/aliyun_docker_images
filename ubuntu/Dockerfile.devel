@@ -23,7 +23,7 @@ COPY ./src/sshd_config /etc/ssh/
 
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple \
     && pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python jupyter \
-    && pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+    && pip3 install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu113
 
 RUN echo "root:scnu" | chpasswd
 
