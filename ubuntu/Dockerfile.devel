@@ -3,10 +3,10 @@ FROM nvidia/cuda:11.3.0-devel-ubuntu20.04
 RUN apt -y update \
     && apt -y install git \
     && apt -y install vim \
-    && apt -y curl \
-    && apt -y wget \
-    && apt -y python3-pip \
-    && apt -y python3-dev \
+    && apt -y install curl \
+    && apt -y install wget \
+    && apt -y install python3-pip \
+    && apt -y install python3-dev \
     && apt -y install openssh-server \
     && apt -y install zsh \
     && ssh-keygen -A
