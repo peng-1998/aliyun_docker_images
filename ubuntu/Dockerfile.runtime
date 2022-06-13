@@ -13,7 +13,9 @@ RUN apt -y update \
     && apt -y install zsh \
     && ssh-keygen -A
 
-COPY ./src/.oh-my-zsh /root/
+COPY ./src/.oh-my-zsh.zip /root/
+
+RUN unzip -q -d /root/ /root/.oh-my-zsh.zip && rm /root/.oh-my-zsh.zip
 
 COPY ./src/.zshrc /root/
 
