@@ -11,6 +11,7 @@ RUN apt -y update \
     && apt -y install python3-dev \
     && apt -y install openssh-server \
     && apt -y install zsh \
+    && apt -y install unzip \
     && ssh-keygen -A
 
 COPY ./src/.oh-my-zsh.zip /root/
