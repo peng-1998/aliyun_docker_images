@@ -14,7 +14,7 @@ COPY ./src/.zshrc /root/
 
 COPY ./src/mirrorlist /etc/pacman.d/
 
-RUN pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python jupyter \
+RUN pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python jupyter tqdm \
     && pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116 \
     && pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
