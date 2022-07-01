@@ -1,4 +1,4 @@
-# aliyun_docker_images
+# Pytorch Docker 容器
 用于构建pytorch机器学习环境的docker项目，使用阿里云的自动构建服务
 镜像仓库的地址为registry.cn-hangzhou.aliyuncs.com/pengdeeplearning/pytorch_cuda:[镜像版本号]
 可以使用的镜像版本有：
