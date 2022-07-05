@@ -23,6 +23,8 @@ COPY ./src/jupyter_notebook_config.py /root/.jupyter/
 
 COPY ./src/sshd_config /etc/ssh/
 
+COPY ./src/start.sh /root
+
 RUN pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python jupyter tqdm \
     && pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116 \
     && pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple 
@@ -31,5 +33,4 @@ RUN echo "root:scnu" | chpasswd
 
 WORKDIR /root/
 
-CMD zsh
-
+CMD sh /root/start.sh

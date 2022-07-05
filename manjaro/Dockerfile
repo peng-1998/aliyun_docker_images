@@ -19,9 +19,10 @@ RUN pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python j
     && pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 COPY ./src/jupyter_notebook_config.py /root/.jupyter/
+COPY ./src/start.sh /root
 
 RUN echo "root:scnu" | chpasswd
 
 WORKDIR /root/
 
-CMD zsh
+CMD sh /root/start.sh
