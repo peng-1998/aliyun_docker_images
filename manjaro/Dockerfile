@@ -1,6 +1,6 @@
 from manjarolinux/base:latest
 RUN pacman -Syyu --noconfirm \
-    && pacman -S --noconfirm cuda python-pip zsh openssh unzip yay\
+    && pacman -S --noconfirm cuda python-pip zsh openssh unzip yay sudo curl\
     && pacman -Sc --noconfirm \
     && ssh-keygen -A
 

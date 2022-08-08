@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.6.0-devel-ubuntu20.04
+FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt -y update \
@@ -24,14 +24,8 @@ COPY ./src/jupyter_notebook_config.py /root/.jupyter/
 
 COPY ./src/sshd_config /etc/ssh/
 
-COPY ./src/start.sh /root
-
 RUN pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python jupyter tqdm \
     && pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116 \
     && pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple 
 
-RUN echo "root:scnu" | chpasswd
-
-WORKDIR /root/
-
-CMD sh /root/start.sh
+RUN echo "root:scnu" | chpasswd 
