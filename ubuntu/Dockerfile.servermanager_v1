@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM nvidia/cuda:11.6.0-devel-ubuntu20.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt -y update \
@@ -12,6 +12,7 @@ RUN apt -y update \
     && apt -y install zsh \
     && apt -y install unzip \
     && apt -y install sudo \
+    && apt-get -y clean
     && ssh-keygen -A
 
 COPY ./src/.oh-my-zsh.zip /root/
