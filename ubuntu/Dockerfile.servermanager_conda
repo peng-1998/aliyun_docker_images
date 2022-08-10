@@ -16,8 +16,10 @@ RUN apt -y update \
 RUN cd /root \
     && wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py38_4.9.2-Linux-x86_64.sh \
     && chmod +x ./Miniconda3-py38_4.9.2-Linux-x86_64.sh \
-    && ./Miniconda3-py38_4.9.2-Linux-x86_64.sh \
+    && ./Miniconda3-py38_4.9.2-Linux-x86_64.sh -b -p /opt/conda \
     && rm ./Miniconda3-py38_4.9.2-Linux-x86_64.sh
+
+ENV /opt/conda/bin:$PATH
 
 COPY ./src/.oh-my-zsh.zip /root/
 
