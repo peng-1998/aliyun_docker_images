@@ -19,7 +19,7 @@ RUN cd /root \
     && ./Miniconda3-py38_4.9.2-Linux-x86_64.sh -b -p /opt/conda \
     && rm ./Miniconda3-py38_4.9.2-Linux-x86_64.sh
 
-ENV /opt/conda/bin:$PATH
+ENV PATH /opt/conda/bin:$PATH
 
 COPY ./src/.oh-my-zsh.zip /root/
 
