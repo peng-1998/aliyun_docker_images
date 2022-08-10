@@ -29,4 +29,7 @@ RUN pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python j
     && pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116 \
     && pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple 
 
+ENV PATH=/usr/local/cuda-11/bin;$PATH
+ENV LD_LIBRARY_PATH=/usr/local/cuda-11/lib64:$LD_LIBRARY_PATH
+
 RUN echo "root:scnu" | chpasswd 
