@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.6.0-runtime-ubuntu20.04
+FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt -y update \
@@ -10,6 +10,7 @@ RUN apt -y update \
     && apt -y install zsh \
     && apt -y install unzip \
     && apt -y install sudo \
+    && apt-get -y clean \
     && ssh-keygen -A
 
 RUN cd /root \
@@ -23,8 +24,6 @@ COPY ./src/.oh-my-zsh.zip /root/
 RUN unzip -q -d /root/ /root/.oh-my-zsh.zip && rm /root/.oh-my-zsh.zip
 
 COPY ./src/.zshrc /root/
-
-COPY ./src/jupyter_notebook_config.py /root/.jupyter/
 
 COPY ./src/sshd_config /etc/ssh/
 
