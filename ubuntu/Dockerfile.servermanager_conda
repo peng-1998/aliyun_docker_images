@@ -17,8 +17,8 @@ RUN apt -y update \
 # Install miniconda3
 ARG miniconda3_version=py39_4.9.2
 ARG miniconda3_script=Miniconda3-${miniconda3_version}-Linux-x86_64.sh
-RUN cd /root &&
-    wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$miniconda3_script \
+RUN cd /root \
+    && wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/$miniconda3_script \
     && chmod +x ./$miniconda3_script \
     && ./$miniconda3_script -b -p /opt/conda \
     && rm ./$miniconda3_script
