@@ -33,6 +33,9 @@ RUN pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python j
 
 RUN echo "root:scnu" | chpasswd
 
+ENV PATH=/usr/local/cuda-11/bin$PATH
+ENV LD_LIBRARY_PATH=/usr/local/cuda-11/lib64:$LD_LIBRARY_PATH
+
 WORKDIR /root/
 
 CMD sh /root/start.sh
