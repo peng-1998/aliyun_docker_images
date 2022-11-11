@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.6.0-devel-ubuntu20.04
+FROM nvidia/cuda:11.7.0-devel-ubuntu22.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt -y update \
@@ -12,6 +12,7 @@ RUN apt -y update \
     && apt -y install zsh \
     && apt -y install unzip \
     && apt -y install sudo \
+    && apt -y install libgl1-mesa-glx \ # for opencv-python
     && ssh-keygen -A
 
 COPY ./src/.oh-my-zsh.zip /root/
@@ -27,7 +28,7 @@ COPY ./src/sshd_config /etc/ssh/
 COPY ./src/start.sh /root
 
 RUN pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python jupyter tqdm \
-    && pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116 \
+    && pip3 install torch torchvision \
     && pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple 
 
 RUN echo "root:scnu" | chpasswd
