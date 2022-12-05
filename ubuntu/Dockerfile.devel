@@ -12,7 +12,7 @@ RUN apt -y update \
     && apt -y install zsh \
     && apt -y install unzip \
     && apt -y install sudo \
-    && apt -y install libgl1-mesa-glx \ # for opencv-python
+    && apt -y install libgl1-mesa-glx \ 
     && ssh-keygen -A
 
 COPY ./src/.oh-my-zsh.zip /root/
