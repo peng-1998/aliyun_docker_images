@@ -1,0 +1,37 @@
+FROM ubuntu:22.04
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt -y update \
+    && apt -y install git \
+    && apt -y install vim \
+    && apt -y install curl \
+    && apt -y install wget \
+    && apt -y install python3-pip \
+    && apt -y install python3-dev \
+    && apt -y install openssh-server \
+    && apt -y install zsh \
+    && apt -y install unzip \
+    && apt -y install sudo \
+    && apt -y install libgl1-mesa-glx \
+    && ssh-keygen -A
+
+# Install oh-my-zsh
+RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+    && git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions \
+    && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting \
+    && sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' ~/.zshrc
+# Set jupyter notebook config
+COPY ./src/jupyter_notebook_config.py /root/.jupyter/
+# Set sshd config
+COPY ./src/sshd_config /etc/ssh/
+
+RUN pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python jupyter tqdm \
+    && pip3 install numpy --pre torch[dynamo] torchvision --force-reinstall --extra-index-url https://download.pytorch.org/whl/nightly/cu117 \
+    && pip config set global.index-url http://172.17.0.1:9997/root/pypi/+simple/ \
+    && pip config set install.trusted-host 172.17.0.1 \
+    && echo "deb http://192.168.100.195:9998/ubuntu/ jammy main restricted universe multiverse" > /etc/apt/sources.list \
+    && echo "deb http://192.168.100.195:9998/ubuntu/ jammy-updates main restricted universe multiverse" >> /etc/apt/sources.list \
+    && echo "deb http://192.168.100.195:9998/ubuntu/ jammy-backports main restricted universe multiverse" >> /etc/apt/sources.list \
+    && echo "deb http://192.168.100.195:9998/ubuntu/ jammy-security main restricted universe multiverse" >> /etc/apt/sources.list 
+
+RUN echo "root:scnu" | chpasswd
