@@ -16,7 +16,6 @@ docker pull registry.cn-hangzhou.aliyuncs.com/pengdeeplearning/pytorch_cuda:[镜
 |torch112_vision013_cu116_cuda116_runtime_ubuntu2004|3.8.10|1.12|0.13|11.6|11.6|5.298|
 |torch2.0_vision015_cu117_ubuntu2204|3.10.6|1.14.0.dev20221204|0.15.0.dev20221204+cpu|11.7|无|4.209|
 
-基于manjaro的镜像不再更新,我自己都不用.
 
 # GPU实验管理系统镜像
 下面是为本人另一个项目GPU实验管理系统定制的镜像：
