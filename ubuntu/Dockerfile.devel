@@ -22,6 +22,11 @@ RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/inst
 RUN pip install numpy scipy matplotlib scikit-learn scikit-image opencv-python jupyter tqdm \
     && pip install torch torchvision 
 # Install Code-Server
+# Code-Server的默认端口为8080,以下是默认配置,可以自行使用sed命令修改
+# bind-addr: 127.0.0.1:8080
+# auth: password
+# password: *****
+# cert: false
 RUN curl -fsSL https://code-server.dev/install.sh | sh \
     && sed -i 's/127.0.0.1/0.0.0.0/g' ~/.config/code-server/config.yaml \
     && sed -i '3c password: scnu' ~/.config/code-server/config.yaml
@@ -33,10 +38,11 @@ RUN jupyter notebook --generate-config \
     && echo "c.NotebookApp.allow_remote_access = True" >> ~/.jupyter/jupyter_notebook_config.py
 # 如果不开启jupyter notebook 也要替换成bash指令,否则执行完service ssh start容器就退出了
 # echo "root:scnu" | chpasswd 设置root的密码为scnu
-RUN echo "service ssh start" > /start.sh \
+RUN && echo "root:scnu" | chpasswd \
+    && echo "service ssh start" > /start.sh \
     && echo "code-server &" >> /start.sh \
-    && echo "jupyter notebook" >> /start.sh \
-    && echo "root:scnu" | chpasswd 
+    && echo "jupyter notebook" >> /start.sh 
+    
 # 最后一个执行的指令应该是阻塞的,否则容器会退出,不是最后一个的阻塞指令应该加上&后台执行,service ssh start是非阻塞的,因此如果只有这一个指令,需要加上一个阻塞指令,如while true ; do sleep 10000 ; done
 
 ENV PATH=/usr/local/cuda-11/bin$PATH
